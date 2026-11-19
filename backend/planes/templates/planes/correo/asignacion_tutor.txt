@@ -1,0 +1,18 @@
+{% autoescape off %}Hola {{ nombres }},
+
+Quedaste como tutor responsable de un plan de refuerzo en {{ app }} ({{ institucion }}):
+
+Estudiante: {{ estudiante }}
+Asignatura: {{ asignatura }}
+Periodo: {{ periodo }}
+Del {{ fecha_inicio }} al {{ fecha_fin }}
+
+Objetivos:
+{{ objetivos }}
+
+Abre la app para ver la ficha completa del estudiante.
+
+--
+{{ app }} - {{ institucion }}
+Este mensaje se envió automáticamente a {{ correo }}. Por favor no respondas a este correo.
+{% endautoescape %}

@@ -1,0 +1,14 @@
+{% autoescape off %}Hola {{ nombres }},
+
+{{ tutor }} será tu tutor en el refuerzo de {{ asignatura }} en {{ app }} ({{ institucion }}).
+
+Periodo: {{ periodo }}
+Del {{ fecha_inicio }} al {{ fecha_fin }}
+
+Objetivos:
+{{ objetivos }}
+
+--
+{{ app }} - {{ institucion }}
+Este mensaje se envió automáticamente a {{ correo }}. Por favor no respondas a este correo.
+{% endautoescape %}

@@ -1,0 +1,20 @@
+{% extends "usuarios/correo/base.html" %}
+
+{% block titulo %}Nuevo plan de refuerzo asignado - {{ app }}{% endblock %}
+
+{% block previa %}Se te asignó el refuerzo de {{ asignatura }} para {{ estudiante }}.{% endblock %}
+
+{% block contenido %}
+<h1 style="margin:0 0 16px;font-size:22px;color:#1A1D23;">Se te asignó un plan de refuerzo</h1>
+<p style="margin:0 0 16px;">Hola {{ nombres }},</p>
+<p style="margin:0 0 16px;">Quedaste como tutor responsable del siguiente plan de refuerzo:</p>
+<ul style="margin:0 0 24px;padding-left:20px;">
+  <li><strong>Estudiante:</strong> {{ estudiante }}</li>
+  <li><strong>Asignatura:</strong> {{ asignatura }}</li>
+  <li><strong>Periodo:</strong> {{ periodo }}</li>
+  <li><strong>Del</strong> {{ fecha_inicio }} <strong>al</strong> {{ fecha_fin }}</li>
+</ul>
+<p style="margin:0 0 8px;"><strong>Objetivos</strong></p>
+<p style="margin:0 0 24px;">{{ objetivos|linebreaksbr }}</p>
+<p style="margin:0;font-size:14px;color:#5F6B7A;">Abre la app para ver la ficha completa del estudiante.</p>
+{% endblock %}

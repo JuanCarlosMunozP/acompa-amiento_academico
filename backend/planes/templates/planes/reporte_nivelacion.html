@@ -1,0 +1,85 @@
+<!doctype html>
+{% load l10n %}
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reporte de nivelación · {{ r.identificacion.estudiante }}</title>
+<style>
+  @page { size: letter; margin: 18mm; }
+  * { box-sizing: border-box; }
+  body { font: 13px/1.45 Arial, Helvetica, sans-serif; color: #172033; margin: 0; padding: 24px; }
+  header { border-bottom: 2px solid #172033; padding-bottom: 8px; margin-bottom: 14px; }
+  h1 { font-size: 18px; margin: 0 0 2px; }
+  h2 { font-size: 14px; margin: 18px 0 6px; padding-bottom: 3px; border-bottom: 1px solid #b8c0cc; }
+  .sub { color: #4a5568; font-size: 12px; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { text-align: left; vertical-align: top; padding: 4px 6px; border: 1px solid #c8ced8; }
+  th { background: #eef2f7; width: 28%; font-weight: 600; }
+  table.lista th { width: auto; }
+  .nota { font-size: 22px; font-weight: 700; }
+  .firmas { display: flex; gap: 32px; margin-top: 48px; page-break-inside: avoid; }
+  .firma { flex: 1; text-align: center; }
+  .firma .linea { border-top: 1px solid #172033; margin-top: 56px; padding-top: 4px; }
+  .pie { margin-top: 20px; color: #4a5568; font-size: 11px; }
+  .acciones { margin-bottom: 12px; }
+  button { font: inherit; padding: 6px 14px; }
+  @media print { .acciones { display: none; } body { padding: 0; } }
+</style>
+</head>
+<body>
+<div class="acciones"><button onclick="window.print()">Imprimir</button></div>
+<header>
+  <h1>{{ r.institucion }}</h1>
+  <div class="sub">Reporte individual de nivelación · Expediente {{ r.expediente }}</div>
+</header>
+
+<h2>Identificación</h2>
+<table>
+  <tr><th>Periodo</th><td>{{ r.identificacion.periodo }}</td></tr>
+  <tr><th>Fecha de actividad</th><td>{{ r.identificacion.fecha_inicio|date:"d/m/Y" }} al {{ r.identificacion.fecha_fin|date:"d/m/Y" }}{% if r.identificacion.fecha_cierre %} · cierre {{ r.identificacion.fecha_cierre|date:"d/m/Y" }}{% endif %}</td></tr>
+  <tr><th>Estudiante</th><td>{{ r.identificacion.estudiante }}</td></tr>
+  <tr><th>Grado y grupo</th><td>{{ r.identificacion.grado|default:"—" }} {{ r.identificacion.grupo }}</td></tr>
+  <tr><th>Área</th><td>{{ r.identificacion.area }}</td></tr>
+  <tr><th>Docente responsable</th><td>{{ r.identificacion.docente|default:"—" }}</td></tr>
+  <tr><th>Desempeños no alcanzados</th><td>{{ r.desempenos_no_alcanzados|default:"—"|linebreaksbr }}</td></tr>
+</table>
+
+<h2>Síntesis del plan y las actividades</h2>
+<p>{{ r.objetivos|linebreaksbr }}</p>
+{% if r.actividades %}
+<table class="lista">
+  <tr><th>Actividad</th><th>Fecha límite</th><th>Entregas</th><th>Estado</th></tr>
+  {% for a in r.actividades %}
+  <tr><td>{{ a.titulo }}</td><td>{{ a.fecha_limite|date:"d/m/Y" }}</td><td>{{ a.entregas }}</td><td>{% if a.completada %}Cumplida{% else %}Sin cumplir{% endif %}</td></tr>
+  {% endfor %}
+</table>
+{% endif %}
+
+<h2>Acompañamiento</h2>
+<table>
+  <tr><th>Entregas</th><td>{{ r.acompanamiento.entregas }}</td></tr>
+  <tr><th>Retroalimentaciones</th><td>{{ r.acompanamiento.retroalimentaciones }}</td></tr>
+  <tr><th>Correcciones realizadas</th><td>{{ r.acompanamiento.correcciones }}</td></tr>
+  <tr><th>Dudas planteadas</th><td>{{ r.acompanamiento.dudas }}</td></tr>
+</table>
+
+<h2>Resultado</h2>
+<table>
+  <tr><th>Valoración descriptiva</th><td>{{ r.resultado.valoracion|linebreaksbr }}</td></tr>
+  <tr><th>Nota cuantitativa (1,0 a 5,0)</th><td class="nota">{% localize on %}{{ r.resultado.nota_final|floatformat:1 }}{% endlocalize %}</td></tr>
+  <tr><th>Resultado</th><td>{{ r.resultado.resultado }}</td></tr>
+</table>
+
+{% if r.validacion.observaciones %}
+<h2>Observaciones de coordinación</h2>
+<ul>{% for o in r.validacion.observaciones %}<li>{{ o.texto }} <span class="sub">— {{ o.autor }}</span></li>{% endfor %}</ul>
+{% endif %}
+
+<div class="firmas">
+  <div class="firma"><div class="linea">Firma del docente<br>{{ r.identificacion.docente }}</div></div>
+  <div class="firma"><div class="linea">Visto bueno y firma de coordinación{% if r.validacion.visto_bueno %}<br>Registrado en el sistema: {{ r.validacion.visto_bueno_por }}, {{ r.validacion.visto_bueno_fecha|date:"d/m/Y" }}{% endif %}</div></div>
+</div>
+<div class="pie">Generado el {{ r.generado|date:"d/m/Y H:i" }}. La firma y la validación se realizan sobre el reporte impreso.</div>
+</body>
+</html>

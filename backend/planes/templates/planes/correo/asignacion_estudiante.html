@@ -1,0 +1,17 @@
+{% extends "usuarios/correo/base.html" %}
+
+{% block titulo %}Tu plan de refuerzo tiene tutor - {{ app }}{% endblock %}
+
+{% block previa %}{{ tutor }} te acompañará en {{ asignatura }}.{% endblock %}
+
+{% block contenido %}
+<h1 style="margin:0 0 16px;font-size:22px;color:#1A1D23;">Tu plan de refuerzo ya tiene tutor</h1>
+<p style="margin:0 0 16px;">Hola {{ nombres }},</p>
+<p style="margin:0 0 16px;"><strong>{{ tutor }}</strong> será tu tutor en el refuerzo de <strong>{{ asignatura }}</strong>.</p>
+<ul style="margin:0 0 24px;padding-left:20px;">
+  <li><strong>Periodo:</strong> {{ periodo }}</li>
+  <li><strong>Del</strong> {{ fecha_inicio }} <strong>al</strong> {{ fecha_fin }}</li>
+</ul>
+<p style="margin:0 0 8px;"><strong>Objetivos</strong></p>
+<p style="margin:0;">{{ objetivos|linebreaksbr }}</p>
+{% endblock %}
