@@ -1,0 +1,9 @@
+**/node_modules
+**/.expo
+**/dist
+**/android
+**/ios
+**/__tests__
+certs
+.env
+.env.*
