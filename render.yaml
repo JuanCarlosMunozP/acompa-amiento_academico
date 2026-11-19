@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: tutorias-academicas-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    healthCheckPath: /api/health/
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: MFA_CLAVE_CIFRADO
+        generateValue: true
+      - key: DATABASE_URL
+        sync: false
+      - key: CORS_ALLOWED_ORIGINS
+        sync: false
+      - key: VERIFICACION_URL
+        sync: false
+      - key: RECUPERACION_URL
+        sync: false
+      - key: DEBUG
+        value: "False"
+      - key: SECURE_SSL_REDIRECT
+        value: "True"

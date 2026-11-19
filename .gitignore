@@ -1,32 +1,112 @@
+# ============================================================
+# SECRETOS Y DATOS SENSIBLES — nunca deben subirse al repositorio
+# ============================================================
+
+# Variables de entorno (se versiona solo la plantilla .env.example)
+.env
+.env.*
+**/.env
+**/.env.*
+!.env.example
+!**/.env.example
+
+# Credenciales de prueba / demostración
+credenciales*
+*credenciales*.txt
+*credentials*
+*secrets*
+*.secret
+*.secrets
+secrets/
+.secrets/
+
+# Claves, certificados y almacenes de firma
+*.pem
+*.key
+*.crt
+*.cer
+*.csr
+*.der
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.mobileprovision
+*.p8
+id_rsa*
+id_ed25519*
+frontend/certs/
+certs/
+
+# Configuración de servicios externos (Firebase, Google, etc.)
+google-services.json
+GoogleService-Info.plist
+service-account*.json
+firebase-adminsdk*.json
+.npmrc
+.pypirc
+.netrc
+
+# Copias de la base de datos y datos reales
+backups/
+*.sql
+*.dump
+*.bak
+*.backup
+*.sqlite
+*.sqlite3
+*.db
+db.sqlite3
+dumpdata*.json
+fixtures_privados/
+
+# Informes de pruebas que pueden contener datos de usuarios
+reporte-pruebas-qa.txt
+runtime-validation-report.md
+
+# Registros
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ============================================================
+# ARTEFACTOS GENERADOS
+# ============================================================
+
 # Python
 __pycache__/
-*.pyc
+*.py[cod]
 .venv/
 venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+.coverage.*
+htmlcov/
+staticfiles/
 
 # Node / Expo
 node_modules/
 .expo/
 dist/
-frontend/certs/
+web-build/
+coverage/
+frontend/railway-web/dist/
+frontend/android/build/
+frontend/android/app/build/
+frontend/android/.gradle/
+frontend/android/local.properties
+*.tsbuildinfo
 
-# Entorno
-.env
-.env.*
-!.env.example
-
-# Registros y bases locales
-backups/
-*.log
-*.sqlite3
+# Vercel local
+frontend/.vercel/
+.vercel/
 
 # IDE / SO
 .vscode/
 .idea/
 .DS_Store
-
-# Archivos generados por collectstatic
-staticfiles/
-
-# Vercel local project linkage
-frontend/.vercel/
+Thumbs.db
