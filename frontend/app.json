@@ -1,0 +1,53 @@
+{
+  "expo": {
+    "name": "Acompañamiento Académico",
+    "slug": "tutorias-academicas",
+    "version": "0.1.2",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "scheme": "tutorias",
+    "icon": "./assets/app-icon.png",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "web": {
+      "bundler": "metro",
+      "name": "Acompañamiento Académico",
+      "shortName": "Acompañamiento",
+      "description": "Plataforma de acompañamiento académico para gestionar tutorías, asistencia, seguimiento y planes de refuerzo estudiantil."
+    },
+    "plugins": [
+      "expo-status-bar",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": false,
+            "enableProguardInReleaseBuilds": true,
+            "enableShrinkResourcesInReleaseBuilds": true
+          }
+        }
+      ],
+      "expo-secure-store",
+      "expo-sharing",
+      "./plugins/seguridad-android"
+    ],
+    "android": {
+      "package": "co.edu.colegio.tutorias",
+      "versionCode": 4,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#062B72"
+      },
+      "allowBackup": false,
+      "blockedPermissions": [
+        "android.permission.SYSTEM_ALERT_WINDOW"
+      ]
+    },
+    "ios": {
+      "bundleIdentifier": "co.edu.colegio.tutorias"
+    }
+  }
+}
