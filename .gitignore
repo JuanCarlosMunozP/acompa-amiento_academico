@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Node / Expo
+node_modules/
+.expo/
+dist/
+frontend/certs/
+
+# Entorno
+.env
+.env.*
+!.env.example
+
+# Registros y bases locales
+backups/
+*.log
+*.sqlite3
+
+# IDE / SO
+.vscode/
+.idea/
+.DS_Store
+
+# Archivos generados por collectstatic
+staticfiles/
+
+# Vercel local project linkage
+frontend/.vercel/
