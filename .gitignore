@@ -9,6 +9,9 @@
 **/.env.*
 !.env.example
 !**/.env.example
+# Solo URLs públicas del frontend (EXPO_PUBLIC_*); nunca poner secretos en estos archivos
+!frontend/.env.development
+!frontend/.env.production
 
 # Credenciales de prueba / demostración
 credenciales*
