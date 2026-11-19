@@ -1,0 +1,16 @@
+# Nunca debe entrar en la imagen: secretos locales y archivos generados
+.env
+.env.*
+!.env.example
+.venv/
+__pycache__/
+*.pyc
+*.sqlite3
+.pytest_cache/
+.ruff_cache/
+staticfiles/
+favicon.ico
+tests/
+certs/
+*.pem
+*.key

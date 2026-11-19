@@ -1,0 +1,90 @@
+﻿name: acompanamiento_academico
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: tutorias_db
+      POSTGRES_USER: tutorias_user
+      POSTGRES_PASSWORD: tutorias_pass
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    # Solo en loopback: permite correr manage.py/pytest desde Windows contra esta misma base.
+    ports:
+      - "127.0.0.1:5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tutorias_user -d tutorias_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  mailpit:
+    image: axllent/mailpit:latest
+    ports:
+      - "8026:8025"
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./backend
+    env_file:
+      - ./backend/.env
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings.local
+      PORT: "8000"
+      DATABASE_URL: postgres://tutorias_user:tutorias_pass@db:5432/tutorias_db
+      EMAIL_HOST: mailpit
+      EMAIL_PORT: "1025"
+      EMAIL_USE_TLS: "False"
+      EMAIL_USE_SSL: "False"
+      # Los enlaces de los correos deben abrir ESTE frontend (HTTPS local), no otro en 443/8081.
+      VERIFICACION_URL: https://localhost:8446/verificar-correo
+      RECUPERACION_URL: https://localhost:8446/nueva-contrasena
+      EMAIL_HOST_USER: ""
+      EMAIL_HOST_PASSWORD: ""
+      SECURE_SSL_REDIRECT: "False"
+    ports:
+      # Backend HTTP de desarrollo, limitado al equipo local.
+      - "127.0.0.1:8448:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health/?db=1', timeout=3)",
+        ]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+
+  frontend:
+    profiles:
+      - local-https
+    build:
+      context: ./frontend
+    ports:
+      # HTTP siempre redirige al HTTPS, incluso si se abre localhost:8445 sin esquema.
+      - "8445:80"
+      - "8446:443"
+    volumes:
+      # El certificado autofirmado se genera solo la primera vez y se conserva en este volumen.
+      - frontend_certs:/etc/nginx/certs
+    environment:
+      LOCAL_CERT_RENEWAL_DAYS: "6"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  # Se conservan los volúmenes existentes (con sus datos) pese al cambio de nombre del proyecto.
+  postgres_data:
+    name: plataforma_tutorias_academicas_postgres_data
+  frontend_certs:
+    name: plataforma_tutorias_academicas_frontend_certs
