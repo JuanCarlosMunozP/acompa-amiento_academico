@@ -1,0 +1,17 @@
+{% autoescape off %}Hola {{ nombres }},
+
+Recibimos una solicitud para cambiar la contraseña de tu cuenta en {{ app }} ({{ institucion }}).
+
+Crea una nueva contraseña con este enlace:
+
+{{ enlace }}
+
+El enlace sirve una sola vez y vence en {{ minutos }} minutos.
+
+Si no fuiste tú, ignora este mensaje: tu contraseña no cambiará y tu cuenta sigue segura.
+
+--
+{{ app }} - {{ institucion }}
+Seguridad: nunca te pediremos tu contraseña por correo, chat o teléfono. Verifica que el enlace sea del dominio oficial antes de ingresar tus datos.
+Este mensaje se envió automáticamente a {{ correo }}. Por favor no respondas a este correo.
+{% endautoescape %}

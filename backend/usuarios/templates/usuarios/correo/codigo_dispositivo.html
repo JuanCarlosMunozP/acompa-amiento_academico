@@ -1,0 +1,9 @@
+{% extends "usuarios/correo/base.html" %}
+{% block contenido %}
+<h1>Verifica este dispositivo</h1>
+<p>Hola {{ nombres }},</p>
+<p>Alguien inició sesión en tu cuenta desde un dispositivo que no conocemos. Si fuiste tú, ingresa este código:</p>
+<p style="font-size:28px;letter-spacing:6px;font-weight:bold">{{ codigo }}</p>
+<p>Vence en {{ minutos }} minutos y sirve una sola vez.</p>
+<p>Si no fuiste tú, ignora este mensaje y cambia tu contraseña: sin este código nadie puede entrar a tu cuenta.</p>
+{% endblock %}

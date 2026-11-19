@@ -1,0 +1,16 @@
+{% autoescape off %}Hola {{ nombres }},
+
+Alguien inició sesión en tu cuenta de {{ app }} desde un dispositivo que no conocemos.
+Si fuiste tú, ingresa este código:
+
+    {{ codigo }}
+
+Vence en {{ minutos }} minutos y sirve una sola vez.
+
+Si no fuiste tú, ignora este mensaje y cambia tu contraseña: sin este código nadie puede entrar a tu cuenta.
+
+--
+{{ app }} - {{ institucion }}
+Seguridad: nunca te pediremos tu contraseña ni este código por chat o teléfono.
+Este mensaje se envió automáticamente a {{ correo }}. Por favor no respondas a este correo.
+{% endautoescape %}

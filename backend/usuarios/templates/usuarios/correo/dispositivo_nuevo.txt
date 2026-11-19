@@ -1,0 +1,10 @@
+{% autoescape off %}Hola {{ nombres }},
+
+Registramos un dispositivo nuevo en tu cuenta de {{ app }}: {{ dispositivo }}.
+
+Si fuiste tú, no tienes que hacer nada. Si no lo reconoces, entra a la plataforma, revoca ese dispositivo en «Seguridad» y cambia tu contraseña.
+
+--
+{{ app }} - {{ institucion }}
+Este mensaje se envió automáticamente a {{ correo }}. Por favor no respondas a este correo.
+{% endautoescape %}

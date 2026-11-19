@@ -1,0 +1,7 @@
+Hola {{ nombres }},
+
+Para activar tu cuenta en Acompañamiento Académico verifica tu correo con este enlace (válido por {{ horas }} horas):
+
+{{ enlace }}
+
+Si no creaste esta cuenta, ignora este mensaje.
